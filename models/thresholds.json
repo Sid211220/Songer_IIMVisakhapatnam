@@ -1,0 +1,12 @@
+{
+ "spike|cgm": 0.5726177652722467,
+ "spike|cgm+life": 0.5335313387168584,
+ "spike|cgm+life+ehr": 0.5470180488124248,
+ "spike|full (with twin)": 0.5336007539372435,
+ "spike|twin-only": 194.81719970703125,
+ "spike250|cgm": 0.6721966974336943,
+ "spike250|cgm+life": 0.6010224131558888,
+ "spike250|cgm+life+ehr": 0.5515837286800364,
+ "spike250|full (with twin)": 0.6157339880558977,
+ "spike250|twin-only": 278.93023681640625
+}

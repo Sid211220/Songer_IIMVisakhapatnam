@@ -1,0 +1,99 @@
+{
+ "start": {
+  "now": "Mon, 21 Sept 14:15",
+  "pt": "PT-185",
+  "sex": "F",
+  "age": 44,
+  "status": "T2D",
+  "hba1c": 7.3,
+  "meds": [
+   "metformin"
+  ],
+  "comorb": [
+   "hypertension",
+   "obesity"
+  ],
+  "g": 141,
+  "risk": 95,
+  "risk250": 38,
+  "pred": [
+   262,
+   307,
+   258,
+   195
+  ],
+  "reasons": "twin-predicted 2-h peak | time of day (daily routine) | glucose variability last 3 h",
+  "meal_carbs": 132,
+  "meal_min_ago": 14,
+  "meal_desc": "2 x white rice katori, 1 x dal katori, 1 x curd katori",
+  "nudge_drop": 14,
+  "list_top": [
+   "PT-185 141 ↑ F 44 · T2D · A1c 7.3% risk 95%",
+   "PT-077 176 ↑↑ F 50 · Prediabetes · A1c 6.4% risk 93%",
+   "PT-120 160 ↑ M 52 · T2D · A1c 7% risk 91%",
+   "PT-068 159 ↑↑ F 58 · Prediabetes · A1c 5.8% risk 88%"
+  ],
+  "params": [
+   "Parameter (day 15)\tTwin now\tEHR prior\tPanel rank",
+   "Insulin sensitivity\t5.37 ×10⁻⁴\t2.89\t64th",
+   "Fasting glucose level\t149 mg/dL\t130\t71st",
+   "Meal response (carb gain)\t0.65×\t1.00\t21st",
+   "Absorption speed\t2.8 %/min\t3.0\t71st",
+   "Dawn effect\t0.33 mg/dL/min\t0.35\t71st"
+  ],
+  "summary": "Time in range 70-180 77% Above 180 23% GMI · CV 7.0% · 30%",
+  "threshold": 53.36007539372435
+ },
+ "walk": {
+  "0": [
+   "297",
+   "297",
+   "120 → 120"
+  ],
+  "15": [
+   "297",
+   "283",
+   "120 → 105"
+  ],
+  "30": [
+   "297",
+   "269",
+   "120 → 95"
+  ]
+ },
+ "sleep_last": "4.9",
+ "full_night": [
+  "297",
+  "275",
+  "120 → 95"
+ ],
+ "evening": {
+  "now": "Mon, 21 Sept 20:00",
+  "card": "SPIKE RISK, NEXT 2 HOURS Already above 180 Risk is scored only when the last 30 minutes were in range. Current CGM 172 mg/dL.",
+  "list_top": [
+   "PT-120 148 ↑ M 52 · T2D · A1c 7% risk 73%",
+   "PT-164 120 → F 57 · T2D · A1c 6.6% risk 63%",
+   "PT-171 161 ↘ M 61 · T2D · A1c 7% risk 58%",
+   "PT-046 140 → M 58 · Prediabetes · A1c 6.2% risk 56%",
+   "PT-077 102 ↘ F 50 · Prediabetes · A1c 6.4% risk 53%"
+  ]
+ },
+ "dinner_rice": [
+  "268",
+  "255",
+  "120 → 105"
+ ],
+ "dinner_chapati": [
+  "224",
+  "215",
+  "120 → 100"
+ ],
+ "dinner_chapati70": [
+  "224",
+  "195",
+  "120 → 70"
+ ],
+ "pre_patient": "PT-046 Prediabetes Male, 58 y HbA1c 6.2% BMI 27.7 eGFR 85 BP (sys) 120 LDL 172 Weight 87 kg Genetic risk* 35th pct Family history* No Medicines: none · Conditions: obesity *Synthetic marker for the prototype, not real genetic data. || SPIKE RISK, NEXT 2 HOURS 56% above 180 mg/dL · ALERT 1% above 250 mg/dL 193 forecast high in 2 h (at +120 min) Top reasons (SHAP): habitual meal time approaching time of day (daily routine) steps in last 15 min Alert threshold 53%, set on validation patients for 70% precision.",
+ "alerts_at_8pm": 4,
+ "n_panel": 14
+}

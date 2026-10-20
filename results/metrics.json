@@ -1,0 +1,506 @@
+{
+ "n_test_patients": 41,
+ "n_test_anchors": 54776,
+ "regression": {
+  "persist|30": {
+   "rmse": 32.173,
+   "mae": 22.251,
+   "mard": 14.73,
+   "clarke_a": 73.535,
+   "clarke_ab": 98.711
+  },
+  "persist|60": {
+   "rmse": 46.377,
+   "mae": 31.734,
+   "mard": 20.693,
+   "clarke_a": 60.422,
+   "clarke_ab": 96.142
+  },
+  "persist|90": {
+   "rmse": 53.999,
+   "mae": 37.879,
+   "mard": 25.018,
+   "clarke_a": 53.064,
+   "clarke_ab": 94.151
+  },
+  "persist|120": {
+   "rmse": 57.341,
+   "mae": 41.167,
+   "mard": 27.606,
+   "clarke_a": 48.655,
+   "clarke_ab": 93.155
+  },
+  "linear|30": {
+   "rmse": 26.674,
+   "mae": 19.138,
+   "mard": 13.287,
+   "clarke_a": 77.37,
+   "clarke_ab": 99.102
+  },
+  "linear|60": {
+   "rmse": 35.181,
+   "mae": 25.331,
+   "mard": 17.477,
+   "clarke_a": 64.435,
+   "clarke_ab": 97.625
+  },
+  "linear|90": {
+   "rmse": 37.504,
+   "mae": 27.596,
+   "mard": 19.173,
+   "clarke_a": 59.88,
+   "clarke_ab": 97.075
+  },
+  "linear|120": {
+   "rmse": 37.809,
+   "mae": 28.019,
+   "mard": 19.526,
+   "clarke_a": 59.259,
+   "clarke_ab": 97.025
+  },
+  "twin|30": {
+   "rmse": 21.928,
+   "mae": 15.266,
+   "mard": 10.729,
+   "clarke_a": 86.122,
+   "clarke_ab": 99.413
+  },
+  "twin|60": {
+   "rmse": 28.756,
+   "mae": 19.171,
+   "mard": 13.096,
+   "clarke_a": 78.619,
+   "clarke_ab": 98.677
+  },
+  "twin|90": {
+   "rmse": 35.896,
+   "mae": 23.227,
+   "mard": 15.239,
+   "clarke_a": 72.198,
+   "clarke_ab": 97.316
+  },
+  "twin|120": {
+   "rmse": 39.044,
+   "mae": 25.775,
+   "mard": 16.642,
+   "clarke_a": 67.465,
+   "clarke_ab": 96.634
+  },
+  "cgm|30": {
+   "rmse": 21.078,
+   "mae": 15.245,
+   "mard": 10.691,
+   "clarke_a": 86.711,
+   "clarke_ab": 99.7
+  },
+  "cgm|60": {
+   "rmse": 25.555,
+   "mae": 18.082,
+   "mard": 12.553,
+   "clarke_a": 81.029,
+   "clarke_ab": 99.426
+  },
+  "cgm|90": {
+   "rmse": 26.708,
+   "mae": 19.009,
+   "mard": 13.232,
+   "clarke_a": 79.217,
+   "clarke_ab": 99.337
+  },
+  "cgm|120": {
+   "rmse": 27.401,
+   "mae": 19.608,
+   "mard": 13.667,
+   "clarke_a": 77.709,
+   "clarke_ab": 99.279
+  },
+  "cgm+life|30": {
+   "rmse": 18.28,
+   "mae": 13.479,
+   "mard": 9.534,
+   "clarke_a": 90.319,
+   "clarke_ab": 99.752
+  },
+  "cgm+life|60": {
+   "rmse": 22.307,
+   "mae": 16.032,
+   "mard": 11.249,
+   "clarke_a": 85.105,
+   "clarke_ab": 99.609
+  },
+  "cgm+life|90": {
+   "rmse": 24.238,
+   "mae": 17.356,
+   "mard": 12.143,
+   "clarke_a": 82.434,
+   "clarke_ab": 99.495
+  },
+  "cgm+life|120": {
+   "rmse": 25.281,
+   "mae": 18.134,
+   "mard": 12.695,
+   "clarke_a": 80.829,
+   "clarke_ab": 99.395
+  },
+  "cgm+life+ehr|30": {
+   "rmse": 18.529,
+   "mae": 13.694,
+   "mard": 9.657,
+   "clarke_a": 90.136,
+   "clarke_ab": 99.747
+  },
+  "cgm+life+ehr|60": {
+   "rmse": 22.748,
+   "mae": 16.367,
+   "mard": 11.462,
+   "clarke_a": 84.771,
+   "clarke_ab": 99.553
+  },
+  "cgm+life+ehr|90": {
+   "rmse": 24.629,
+   "mae": 17.584,
+   "mard": 12.271,
+   "clarke_a": 82.39,
+   "clarke_ab": 99.467
+  },
+  "cgm+life+ehr|120": {
+   "rmse": 25.555,
+   "mae": 18.304,
+   "mard": 12.774,
+   "clarke_a": 80.671,
+   "clarke_ab": 99.374
+  },
+  "full (with twin)|30": {
+   "rmse": 17.248,
+   "mae": 12.713,
+   "mard": 9.041,
+   "clarke_a": 91.677,
+   "clarke_ab": 99.769
+  },
+  "full (with twin)|60": {
+   "rmse": 21.057,
+   "mae": 14.927,
+   "mard": 10.529,
+   "clarke_a": 87.148,
+   "clarke_ab": 99.629
+  },
+  "full (with twin)|90": {
+   "rmse": 23.074,
+   "mae": 16.111,
+   "mard": 11.267,
+   "clarke_a": 85.046,
+   "clarke_ab": 99.488
+  },
+  "full (with twin)|120": {
+   "rmse": 24.247,
+   "mae": 16.957,
+   "mard": 11.825,
+   "clarke_a": 83.26,
+   "clarke_ab": 99.447
+  }
+ },
+ "classification": {
+  "spike": {
+   "prevalence": 20.67,
+   "cgm": {
+    "auroc": 0.921,
+    "auprc": 0.722,
+    "events": 1112,
+    "detected": 736,
+    "sensitivity": 66.187,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.495,
+    "false_alerts_per_patient_day": 0.921,
+    "alert_precision": 63.069
+   },
+   "cgm+life": {
+    "auroc": 0.932,
+    "auprc": 0.745,
+    "events": 1112,
+    "detected": 831,
+    "sensitivity": 74.73,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.733,
+    "false_alerts_per_patient_day": 1.017,
+    "alert_precision": 62.764
+   },
+   "cgm+life+ehr": {
+    "auroc": 0.931,
+    "auprc": 0.746,
+    "events": 1112,
+    "detected": 820,
+    "sensitivity": 73.741,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.682,
+    "false_alerts_per_patient_day": 1.002,
+    "alert_precision": 62.647
+   },
+   "full (with twin)": {
+    "auroc": 0.934,
+    "auprc": 0.75,
+    "events": 1112,
+    "detected": 847,
+    "sensitivity": 76.169,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.879,
+    "false_alerts_per_patient_day": 1.136,
+    "alert_precision": 60.534
+   },
+   "twin-only": {
+    "auroc": 0.684,
+    "auprc": 0.468,
+    "events": 1112,
+    "detected": 728,
+    "sensitivity": 65.468,
+    "median_lead_min": 35.0,
+    "alerts_per_patient_day": 1.853,
+    "false_alerts_per_patient_day": 0.503,
+    "alert_precision": 72.83
+   }
+  },
+  "spike250": {
+   "prevalence": 6.52,
+   "cgm": {
+    "auroc": 0.948,
+    "auprc": 0.512,
+    "events": 406,
+    "detected": 91,
+    "sensitivity": 22.414,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.334,
+    "false_alerts_per_patient_day": 0.124,
+    "alert_precision": 63.021
+   },
+   "cgm+life": {
+    "auroc": 0.955,
+    "auprc": 0.55,
+    "events": 406,
+    "detected": 161,
+    "sensitivity": 39.655,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.575,
+    "false_alerts_per_patient_day": 0.233,
+    "alert_precision": 59.394
+   },
+   "cgm+life+ehr": {
+    "auroc": 0.952,
+    "auprc": 0.531,
+    "events": 406,
+    "detected": 150,
+    "sensitivity": 36.946,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.551,
+    "false_alerts_per_patient_day": 0.251,
+    "alert_precision": 54.43
+   },
+   "full (with twin)": {
+    "auroc": 0.953,
+    "auprc": 0.546,
+    "events": 406,
+    "detected": 151,
+    "sensitivity": 37.192,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.519,
+    "false_alerts_per_patient_day": 0.216,
+    "alert_precision": 58.389
+   },
+   "twin-only": {
+    "auroc": 0.742,
+    "auprc": 0.312,
+    "events": 406,
+    "detected": 147,
+    "sensitivity": 36.207,
+    "median_lead_min": 40.0,
+    "alerts_per_patient_day": 0.404,
+    "false_alerts_per_patient_day": 0.145,
+    "alert_precision": 64.224
+   }
+  }
+ },
+ "regression_post_meal": {
+  "persist|30": 65.803,
+  "persist|60": 85.814,
+  "persist|90": 68.439,
+  "persist|120": 48.597,
+  "linear|30": 54.37,
+  "linear|60": 68.175,
+  "linear|90": 49.349,
+  "linear|120": 34.464,
+  "twin|30": 30.409,
+  "twin|60": 30.436,
+  "twin|90": 24.881,
+  "twin|120": 21.25,
+  "cgm|30": 35.987,
+  "cgm|60": 41.26,
+  "cgm|90": 34.537,
+  "cgm|120": 31.601,
+  "cgm+life|30": 23.607,
+  "cgm+life|60": 28.362,
+  "cgm+life|90": 27.626,
+  "cgm+life|120": 24.098,
+  "cgm+life+ehr|30": 23.638,
+  "cgm+life+ehr|60": 28.317,
+  "cgm+life+ehr|90": 27.363,
+  "cgm+life+ehr|120": 24.108,
+  "full (with twin)|30": 22.373,
+  "full (with twin)|60": 24.788,
+  "full (with twin)|90": 22.291,
+  "full (with twin)|120": 19.64
+ },
+ "regression_vs_true_glucose": {
+  "30": 16.31,
+  "60": 19.36,
+  "90": 21.01,
+  "120": 22.37
+ },
+ "band80_coverage": {
+  "30": 78.3,
+  "60": 77.5,
+  "90": 77.4,
+  "120": 77.3
+ },
+ "bootstrap_rmse_gain_twin": {
+  "60": {
+   "mean": 1.6903221134248727,
+   "lo95": 1.1947209440533884,
+   "hi95": 2.2125440239172387
+  },
+  "120": {
+   "mean": 1.3019263401646395,
+   "lo95": 0.8063589789730824,
+   "hi95": 1.8262799424052285
+  }
+ },
+ "bootstrap_rmse_gain_vs_cgm": {
+  "60": {
+   "mean": 4.483534595155175,
+   "lo95": 3.6791582742952813,
+   "hi95": 5.278083076013713
+  },
+  "120": {
+   "mean": 3.138169905769823,
+   "lo95": 2.28606293270618,
+   "hi95": 4.049964275085507
+  }
+ },
+ "matched_alert_budget": {
+  "spike": {
+   "budget_alerts_per_patient_day": 2.883,
+   "cgm": {
+    "events": 1112,
+    "detected": 808,
+    "sensitivity": 72.662,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.818,
+    "false_alerts_per_patient_day": 1.147,
+    "alert_precision": 59.305
+   },
+   "cgm+life": {
+    "events": 1112,
+    "detected": 835,
+    "sensitivity": 75.09,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.766,
+    "false_alerts_per_patient_day": 1.037,
+    "alert_precision": 62.516
+   },
+   "cgm+life+ehr": {
+    "events": 1112,
+    "detected": 826,
+    "sensitivity": 74.281,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.734,
+    "false_alerts_per_patient_day": 1.04,
+    "alert_precision": 61.957
+   },
+   "full (with twin)": {
+    "events": 1112,
+    "detected": 848,
+    "sensitivity": 76.259,
+    "median_lead_min": 85.0,
+    "alerts_per_patient_day": 2.895,
+    "false_alerts_per_patient_day": 1.147,
+    "alert_precision": 60.386
+   },
+   "twin-only": {
+    "events": 1112,
+    "detected": 867,
+    "sensitivity": 77.968,
+    "median_lead_min": 35.0,
+    "alerts_per_patient_day": 2.881,
+    "false_alerts_per_patient_day": 1.266,
+    "alert_precision": 56.068
+   }
+  },
+  "spike250": {
+   "budget_alerts_per_patient_day": 0.479,
+   "cgm": {
+    "events": 406,
+    "detected": 122,
+    "sensitivity": 30.049,
+    "median_lead_min": 75.0,
+    "alerts_per_patient_day": 0.542,
+    "false_alerts_per_patient_day": 0.216,
+    "alert_precision": 60.129
+   },
+   "cgm+life": {
+    "events": 406,
+    "detected": 160,
+    "sensitivity": 39.409,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.568,
+    "false_alerts_per_patient_day": 0.228,
+    "alert_precision": 59.816
+   },
+   "cgm+life+ehr": {
+    "events": 406,
+    "detected": 149,
+    "sensitivity": 36.7,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.54,
+    "false_alerts_per_patient_day": 0.246,
+    "alert_precision": 54.516
+   },
+   "full (with twin)": {
+    "events": 406,
+    "detected": 151,
+    "sensitivity": 37.192,
+    "median_lead_min": 70.0,
+    "alerts_per_patient_day": 0.519,
+    "false_alerts_per_patient_day": 0.216,
+    "alert_precision": 58.389
+   },
+   "twin-only": {
+    "events": 406,
+    "detected": 164,
+    "sensitivity": 40.394,
+    "median_lead_min": 40.0,
+    "alerts_per_patient_day": 0.474,
+    "false_alerts_per_patient_day": 0.183,
+    "alert_precision": 61.397
+   }
+  }
+ },
+ "twin_identifiability": {
+  "spearman_SI_ehr_prior_only": 0.371,
+  "spearman_Gb_ehr_prior_only": 0.804,
+  "spearman_SI_onboarding": 0.807,
+  "spearman_SI_day21": 0.823,
+  "spearman_Gb_onboarding": 0.833,
+  "spearman_Gb_day21": 0.845
+ },
+ "living_twin": {
+  "nightly": {
+   "30": 21.93,
+   "60": 28.76,
+   "90": 35.9,
+   "120": 39.04
+  },
+  "frozen_after_week1": {
+   "30": 23.28,
+   "60": 30.47,
+   "90": 37.55,
+   "120": 40.69
+  }
+ }
+}

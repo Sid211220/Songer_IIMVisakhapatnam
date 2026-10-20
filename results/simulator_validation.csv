@@ -1,0 +1,7 @@
+check,short,simulated,published,ok
+Post-meal walk (15 min) lowers 3-h incremental glucose,-16% post-meal glucose,16% (IQR 12-19%),"12% overall, 22% after the evening meal (Reynolds 2016); light walking lowers post-meal glucose (Buffey 2022)",True
+Breakfast response after one 4-hour night (sensitivity -25% in the model),"sensitivity -25%, +10% breakfast rise",+10% incremental glucose (sensitivity multiplier 0.75),One night of ~4 h sleep lowered the glucose infusion rate (insulin sensitivity) by about 25% (Donga 2010),True
+Dawn rise in T2D (night nadir to 06:00-06:30),median 12 mg/dL,median 12 mg/dL,Median dawn rise 16 mg/dL (range 0-31.5) in 248 people with T2D (Monnier 2013),True
+21-day mean glucose vs HbA1c-implied mean,r = 0.96,r = 0.96; mean difference -0.1 mg/dL,"eAG = 28.7 x HbA1c - 46.7, r = 0.92 in the ADAG study (Nathan 2008); glycation gap added on purpose",True
+Time in range (70-180) vs HbA1c,-18 points per 1%,TIR at HbA1c 6.8-7.2%: 81%; slope -18.5 points per 1% HbA1c,"TIR 70% corresponds to HbA1c about 7%; +10 points TIR is about -0.6% HbA1c, i.e. ~17 points per 1% (Beck 2019)",True
+Simulated CGM accuracy vs true glucose (MARD),9.5%,9.5%,"Dexcom G7 pivotal study: MARD 8.2% (arm), 9.1% (abdomen) (Garg 2022)",True

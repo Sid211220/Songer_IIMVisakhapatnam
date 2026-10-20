@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prahari Twin Clinic</title>
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#1d2733; --ink2:#4a5565; --muted:#8a94a3; --line:#e3e7ec;
+  --teal:#0f766e; --teal-soft:#e6f3f1; --blue:#1f4e8c; --blue-soft:#e8eef7; --amber:#b45309; --amber-soft:#fdf3e4;
+  --red:#b42318; --red-soft:#fdeceb; --green:#15803d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+button,select,input{font:inherit}
+header{position:sticky;top:0;z-index:20;background:#0e1a24;color:#fff;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-size:19px;letter-spacing:.2px}
+.brand span{color:#9fb3c4;font-size:12.5px}
+.tabs{display:flex;gap:4px;margin-left:8px}
+.tabs button{background:transparent;border:1px solid transparent;color:#c9d6e2;padding:6px 12px;border-radius:7px;cursor:pointer}
+.tabs button.on{background:#1f3242;color:#fff;border-color:#2b4457}
+.replay{margin-left:auto;display:flex;align-items:center;gap:8px;background:#162634;border:1px solid #2b4457;padding:6px 10px;border-radius:9px}
+.replay label{font-size:12px;color:#9fb3c4}
+.replay select,.replay input[type=range]{accent-color:#2dd4bf}
+.replay select{background:#0e1a24;color:#fff;border:1px solid #2b4457;border-radius:6px;padding:3px 6px}
+#nowLabel{font-variant-numeric:tabular-nums;min-width:118px;font-weight:600}
+.play{background:#2dd4bf;color:#062b27;border:0;border-radius:6px;padding:4px 10px;cursor:pointer;font-weight:600}
+.disclaimer{background:#fff7e6;color:#7a4b00;font-size:12.5px;padding:6px 20px;border-bottom:1px solid #f2dfb5}
+main{padding:16px 20px 40px}
+.view{display:none}.view.on{display:block}
+.layout{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.list{padding:8px;position:sticky;top:78px;max-height:calc(100vh - 100px);overflow:auto}
+.list .filters{display:flex;gap:6px;padding:4px 6px 10px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--ink2)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pt{display:grid;grid-template-columns:1fr auto;gap:2px 8px;padding:9px 10px;border-radius:9px;cursor:pointer;border:1px solid transparent}
+.pt:hover{background:#f3f6f9}
+.pt.sel{background:var(--teal-soft);border-color:#b7dcd6}
+.pt .id{font-weight:650}
+.pt .meta{color:var(--muted);font-size:12px}
+.pt .g{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.risk{font-size:12px;font-weight:650;border-radius:6px;padding:1px 7px;justify-self:end}
+.r-low{background:#eef2f5;color:var(--ink2)} .r-mid{background:var(--amber-soft);color:var(--amber)} .r-hi{background:var(--red-soft);color:var(--red)}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.stack{display:flex;flex-direction:column;gap:16px}
+.ptitle{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ptitle h2{margin:0;font-size:20px}
+.tag{font-size:12px;border-radius:6px;padding:2px 8px;background:#eef2f5;color:var(--ink2)}
+.tag.t2d{background:var(--blue-soft);color:var(--blue)} .tag.pre{background:#f1eefb;color:#5b3fb0}
+.kv{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px;margin-top:10px}
+.kv div{font-size:12px;color:var(--muted)} .kv b{display:block;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.small{font-size:12px;color:var(--muted)}
+.alert{border-left:5px solid var(--muted)}
+.alert.hi{border-left-color:var(--red);background:linear-gradient(90deg,#fff6f5,#fff 60%)}
+.alert.mid{border-left-color:var(--amber)}
+.alert .big{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.alert ul{margin:6px 0 0;padding-left:18px}
+.alert li{margin:2px 0}
+.action{margin-top:10px;background:var(--teal-soft);border:1px solid #b7dcd6;color:#0b4f49;border-radius:8px;padding:8px 10px;font-size:13px}
+.chart{width:100%;height:330px}
+.chart.sm{height:230px}
+.chart.xs{height:190px}
+.params{width:100%;border-collapse:collapse;font-size:13px}
+.params td{padding:5px 4px;border-bottom:1px solid var(--line)}
+.params td:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}
+.params tr:last-child td{border-bottom:0}
+.wi-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-bottom:6px}
+.wi-controls label{font-size:12px;color:var(--ink2);display:flex;flex-direction:column;gap:3px}
+.wi-controls input[type=range]{accent-color:var(--teal)}
+.wi-out{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.wi-out div{background:#f6f8fa;border-radius:8px;padding:6px 8px;font-size:12px;color:var(--muted)}
+.wi-out b{display:block;color:var(--ink);font-size:16px;font-variant-numeric:tabular-nums}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .v{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12px;color:var(--ink2)}
+.kpi .s{font-size:12px;color:var(--muted);margin-top:2px}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;font-weight:600;color:var(--ink2);border-bottom:2px solid var(--line);padding:6px}
+table.t td{border-bottom:1px solid var(--line);padding:6px;font-variant-numeric:tabular-nums}
+table.t tr.best td{background:var(--teal-soft);font-weight:600}
+img.fig{width:100%;border:1px solid var(--line);border-radius:10px;background:#fff}
+.prose{max-width:900px}
+.prose h2{margin-top:6px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
+.flow div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12.5px}
+.flow b{display:block;font-size:13px;margin-bottom:4px;color:var(--teal)}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}.list{position:static;max-height:none}.grid2,.grid3{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){main{padding:12px}.kv{grid-template-columns:repeat(2,1fr)}.replay{margin-left:0;width:100%;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><b>Prahari</b><span>Digital twin clinic · Type 2 diabetes</span></div>
+  <div class="tabs">
+    <button class="on" data-v="clinic">Clinic</button>
+    <button data-v="evidence">Model evidence</button>
+    <button data-v="about">How it works</button>
+  </div>
+  <div class="replay" title="Replay the held-out test period">
+    <label>Replay</label>
+    <select id="daySel"></select>
+    <input id="timeSl" type="range" min="0" max="95" value="54" style="width:150px">
+    <span id="nowLabel"></span>
+    <button class="play" id="playBtn">Play</button>
+  </div>
+</header>
+<div class="disclaimer">Synthetic patients (Synthea EHR + simulated CGM and smartwatch data). Research prototype for the Digital Twin Challenge 2026. Not a medical device and not for clinical use.</div>
+<main>
+<section class="view on" id="v-clinic">
+  <div class="layout">
+    <div class="card list">
+      <div class="filters">
+        <span class="chip on" data-f="all">All</span><span class="chip" data-f="T2D">T2D</span><span class="chip" data-f="prediabetes">Prediabetes</span><span class="chip" data-f="alert">Alerts</span>
+      </div>
+      <div id="ptList"></div>
+      <div class="small" style="padding:8px 10px">Ranked by the twin-informed risk of a glucose spike above 180 mg/dL in the next 2 hours.</div>
+    </div>
+    <div class="stack">
+      <div class="grid2">
+        <div class="card" id="ptCard"></div>
+        <div class="card alert" id="alertCard"></div>
+      </div>
+      <div class="card">
+        <h3>Glucose: last 12 hours and the next 2 hours</h3>
+        <div id="chMain" class="chart"></div>
+        <div class="small">Black: CGM. Teal line and band: Prahari forecast with 80% interval. Dashed orange: the physiological twin on its own. Markers: logged meals (carbs) and insulin. Dotted lines: 70, 180 and 250 mg/dL.</div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>What-if: ask the twin</h3>
+          <div class="wi-controls">
+            <label>Meal <select id="wiMeal"></select></label>
+            <label>Starts in <span><input id="wiWhen" type="range" min="0" max="90" step="5" value="0"> <b id="wiWhenV"></b></span></label>
+            <label>Portion <span><input id="wiPortion" type="range" min="50" max="150" step="5" value="100"> <b id="wiPortionV"></b></span></label>
+            <label>Walk after the meal <span><input id="wiWalk" type="range" min="0" max="30" step="5" value="15"> <b id="wiWalkV"></b></span></label>
+            <label>Last night's sleep <span><input id="wiSleep" type="range" min="4" max="9" step="0.1" value="7.5"> <b id="wiSleepV"></b></span></label>
+            <label>The walk (100 steps/min) starts 15 min after a new meal, or at the start time if nothing new is eaten.<span class="small">Runs this patient's calibrated twin in your browser.</span></label>
+          </div>
+          <div id="chWhatIf" class="chart sm"></div>
+          <div class="wi-out" id="wiOut"></div>
+        </div>
+        <div class="card">
+          <h3>The patient's twin</h3>
+          <table class="params" id="paramTable"></table>
+          <div id="chParams" class="chart xs"></div>
+          <div class="small">Parameters start from an EHR-based prior, are fitted in the onboarding week (days 1-7) and re-fitted every night on the trailing 7 days.</div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Wearables: last 24 hours</h3>
+          <div id="chWear" class="chart sm"></div>
+        </div>
+        <div class="card">
+          <h3>Last 7 days</h3>
+          <div id="chAgp" class="chart sm"></div>
+          <div class="wi-out" id="sumOut"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-evidence">
+  <div class="kpis" id="kpis"></div>
+  <div class="grid2">
+    <div class="card"><h3>Forecast error by horizon (held-out patients)</h3><div id="fTable"></div></div>
+    <div class="card"><img class="fig" id="figRmse" alt="RMSE by horizon"></div>
+  </div>
+  <div style="height:16px"></div>
+  <div class="grid2">
+    <div class="card"><h3>Spike alerts (operating point fixed on validation patients)</h3><div id="aTable"></div>
+      <div class="small" style="margin-top:6px">Sensitivity: spikes preceded by an alert 15-120 minutes before onset. Notifications have a 120-minute cooldown.</div></div>
+    <div class="card"><img class="fig" id="figRoc" alt="ROC and PR curves"></div>
+  </div>
+  <div style="height:16px"></div>
+  <div class="grid3">
+    <div class="card"><img class="fig" id="figShap" alt="SHAP importance"></div>
+    <div class="card"><img class="fig" id="figIdent" alt="Twin identifiability"></div>
+    <div class="card"><img class="fig" id="figClarke" alt="Clarke error grid"></div>
+  </div>
+  <div style="height:16px"></div>
+  <div class="grid2">
+    <div class="card"><h3>Is the virtual population realistic?</h3><div id="sTable"></div></div>
+    <div class="card"><img class="fig" id="figSim" alt="Simulator validation"></div>
+  </div>
+</section>
+
+<section class="view" id="v-about">
+  <div class="card prose">
+    <h2>How Prahari works</h2>
+    <div class="flow">
+      <div><b>1 · EHR</b>Synthea record: age, sex, diagnosis, HbA1c, BMI, eGFR, BP, lipids, medicines, comorbidities, plus synthetic genetic risk.</div>
+      <div><b>2 · Streams</b>CGM every 5 min; watch heart rate, HRV (RMSSD), steps and sleep stages; meal photos/logs; insulin pen.</div>
+      <div><b>3 · Twin</b>Personal glucose-insulin model. Prior from the EHR, fitted in week 1, kept in sync with every CGM reading, re-fitted nightly.</div>
+      <div><b>4 · Hybrid AI</b>LightGBM uses the twin's forecast plus CGM, lifestyle and EHR features: glucose at 30-120 min and spike risk, with SHAP reasons.</div>
+      <div><b>5 · Clinic</b>Risk-ranked patients, 2-hour forecast with uncertainty, reasons, and what-if answers a doctor can use in a consult.</div>
+    </div>
+    <p>The virtual patients live 21 days of an Indian routine (regional meals, tea with sugar, late dinners, walks, short nights, stressful work days). A richer hidden physiology generates their true glucose; the twin never sees those hidden parts, so its forecasts face real model mismatch.</p>
+    <p><b>Limits.</b> All numbers on this page come from synthetic people. Real patients are less regular, so real-world error will be higher; published benchmarks on real CGM data are the right comparison for a clinical study, not these results. Prahari is a proof of concept, not a medical device.</p>
+  </div>
+</section>
+</main>
+
+<script>/*__PLOTLY__*/</script>
+<script>
+const D = /*__DATA__*/null;
+const C = D.consts;
+const ANCH0 = D.patients[0].anchors[0];
+const ANCH_LAST = D.patients[0].anchors[D.patients[0].anchors.length-1];
+const START = new Date(D.start + "T00:00:00");
+const THR = D.thresholds["spike|full (with twin)"];
+const THR250 = D.thresholds["spike250|full (with twin)"];
+const HZ = [30,60,90,120];
+let sel = null, filt = "all", nowMin = ANCH0 + 13*60, playing = null;
+
+const pad = n => String(n).padStart(2,"0");
+function tlabel(m, withDay=true){const d=new Date(START.getTime()+m*60000);const wd=d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});return (withDay?wd+" ":"")+pad(d.getHours())+":"+pad(d.getMinutes());}
+function tdate(m){return new Date(START.getTime()+m*60000);}
+const aidx = m => Math.max(0, Math.min(D.patients[0].anchors.length-1, Math.round((m-ANCH0)/15)));
+const val = (arr,i) => (i>=0 && i<arr.length) ? arr[i] : null;
+
+// ---------- replay controls
+const daySel = document.getElementById("daySel"), timeSl = document.getElementById("timeSl");
+for (let d = Math.floor(ANCH0/1440); d <= Math.floor(ANCH_LAST/1440); d++){
+  const o=document.createElement("option"); o.value=d; o.textContent="Day "+(d+1)+" · "+tdate(d*1440).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"}); daySel.appendChild(o);
+}
+function setNow(m){ nowMin = Math.max(ANCH0, Math.min(ANCH_LAST, m)); nowMin = ANCH0 + Math.round((nowMin-ANCH0)/15)*15;
+  daySel.value = Math.floor(nowMin/1440); timeSl.value = Math.floor((nowMin%1440)/15);
+  document.getElementById("nowLabel").textContent = tlabel(nowMin); render(); }
+daySel.onchange = () => setNow(+daySel.value*1440 + (+timeSl.value)*15);
+timeSl.oninput = () => setNow(+daySel.value*1440 + (+timeSl.value)*15);
+document.getElementById("playBtn").onclick = e => {
+  if (playing){clearInterval(playing);playing=null;e.target.textContent="Play";return;}
+  e.target.textContent="Pause"; playing=setInterval(()=>{ if(nowMin>=ANCH_LAST){clearInterval(playing);playing=null;e.target.textContent="Play";return;} setNow(nowMin+15);},700);
+};
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+b.dataset.v)); if(b.dataset.v==="evidence") renderEvidence(); window.dispatchEvent(new Event("resize"));});
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{filt=c.dataset.f;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===c));renderList();});
+
+// ---------- helpers on a patient at a moment
+function lastReading(p, m){ for(let i=Math.floor(m/5)-1;i>=Math.floor(m/5)-12;i--){ if(i>=0 && p.cgm[i]!=null) return [p.cgm[i], i]; } return [null,-1]; }
+function trend(p, m){ const [g,i]=lastReading(p,m); if(g==null) return ""; const g2=val(p.cgm,i-3); if(g2==null) return ""; const s=(g-g2)/15;
+  return s>2?"↑↑":s>1?"↑":s>0.4?"↗":s<-2?"↓↓":s<-1?"↓":s<-0.4?"↘":"→"; }
+function riskClass(r){ return r==null?"r-low": r>=THR?"r-hi": r>=THR*0.6?"r-mid":"r-low"; }
+
+// ---------- twin in the browser (same equations as prahari/twin.py::_step)
+function twinStep(s, th, pr, meal, a, sm, dose, h, kmul){
+  let [g,x,ins,q1,q2,r1,r2,n1,n2,boost,ig,u]=s;
+  const [SI,Gb,mg,kabs0,dawn]=th; const kabs=kabs0*(kmul||1);
+  q1 += meal*mg; r1 += 0.3*dose; n1 += 0.7*dose;
+  const si = SI*sm*(1+boost); const ra = C.F*kabs*q2/pr.BW;
+  let dwn=0; if(h>=4 && h<9) dwn = dawn*Math.sin(Math.PI*(h-4)/5);
+  const dg = -(C.SG+x)*g + C.SG*Gb + ra/C.VG + dwn + u - C.E_UP*a*g;
+  const dx = -C.P2*x + si*C.P2*ins;
+  const sec = pr.gamma*Math.max(g-Gb,0); const app=(C.KA_R*r2+C.KA_N*n2)*1e6/pr.Vi_ml;
+  const dins = -C.N*ins + sec + app;
+  const ng=Math.max(30,g+dg);
+  s[0]=ng; s[1]=Math.max(-0.02,x+dx); s[2]=Math.max(0,ins+dins);
+  s[3]=q1-kabs*q1; s[4]=q2+kabs*q1-kabs*q2; s[5]=r1-C.KA_R*r1; s[6]=r2+C.KA_R*r1-C.KA_R*r2;
+  s[7]=n1-C.KA_N*n1; s[8]=n2+C.KA_N*n1-C.KA_N*n2; s[9]=Math.max(0,boost-boost/C.TAU_BOOST+C.K_BOOST*a);
+  s[10]=ig+(ng-ig)/C.TAU_IG; s[11]=u-u/C.TAU_U;
+}
+function sleepMult(h){ return 1-0.25*Math.min(1,Math.max(0,(7.5-h)/3.5)); }
+function lastSleep(p, m){ let k=-1; for(let d=0; d<p.wake.length; d++){ if(m>=p.wake[d]) k=d; } return k>=0 ? p.sleep[k] : 7.5; }
+function smAt(p, m){ let k=-1; for(let d=0; d<p.wake.length; d++){ if(m>=p.wake[d]) k=d; } return k>=0 ? sleepMult(p.sleep[k]) : 1.0; }
+function twinRun(p, m, o){
+  // o: {minutes, carbs, mealAt, gi, walkAt, walkMin, sleep, keepU}
+  const i=aidx(m); const s=p.states[i].slice(); if(!o.keepU) s[11]=0;
+  const th=p.theta[Math.min(Math.floor(m/1440), p.theta.length-1)];
+  const sm = o.sleep!=null ? sleepMult(o.sleep) : smAt(p, m);
+  const kmul = o.gi ? Math.pow(o.gi/70, 0.8) : 1;
+  const out=[];
+  for(let k=0;k<o.minutes;k++){
+    const meal = (o.carbs && k===o.mealAt) ? o.carbs*1000 : 0;
+    const a = (o.walkMin && k>=o.walkAt && k<o.walkAt+o.walkMin) ? 1.0 : 0;
+    twinStep(s, th, p.prior, meal, a, sm, 0, ((m+k)%1440)/60, kmul);
+    if((k+1)%5===0) out.push(s[10]);
+  }
+  return out;
+}
+
+// ---------- list
+function renderList(){
+  const i=aidx(nowMin);
+  let ps = D.patients.map(p=>({p, r:p.risk[i], g:lastReading(p,nowMin)[0]}));
+  ps.sort((a,b)=>(b.r??-1)-(a.r??-1));
+  if(filt==="T2D"||filt==="prediabetes") ps=ps.filter(x=>x.p.status===filt);
+  if(filt==="alert") ps=ps.filter(x=>x.r!=null && x.r>=THR);
+  const el=document.getElementById("ptList"); el.innerHTML="";
+  ps.forEach(({p,r,g})=>{
+    const d=document.createElement("div"); d.className="pt"+(sel===p?" sel":"");
+    d.innerHTML=`<span class="id">${p.pt}</span><span class="g">${g==null?"–":Math.round(g)} <span class="small">${trend(p,nowMin)}</span></span>
+      <span class="meta">${p.sex==="M"?"M":"F"} ${p.age} · ${p.status==="T2D"?"T2D":"Prediabetes"} · A1c ${p.hba1c}%</span>
+      <span class="risk ${r==null?"r-hi":riskClass(r)}">${r==null?"high now":"risk "+r+"%"}</span>`;
+    d.onclick=()=>{sel=p;wiTouched=false;render();}; el.appendChild(d);
+  });
+}
+
+// ---------- patient header + alert
+function renderPatient(p){
+  const i=aidx(nowMin);
+  document.getElementById("ptCard").innerHTML = `
+    <div class="ptitle"><h2>${p.pt}</h2><span class="tag ${p.status==="T2D"?"t2d":"pre"}">${p.status==="T2D"?"Type 2 diabetes":"Prediabetes"}</span>
+    <span class="small">${p.sex==="M"?"Male":"Female"}, ${p.age} y${p.status==="T2D"?" · diagnosed "+p.dyears+" y ago":""}</span></div>
+    <div class="kv">
+      <div>HbA1c<b>${p.hba1c}%</b></div><div>BMI<b>${p.bmi}</b></div><div>eGFR<b>${p.egfr}</b></div><div>BP (sys)<b>${p.sbp}</b></div>
+      <div>LDL<b>${p.ldl}</b></div><div>Weight<b>${p.weight} kg</b></div><div>Genetic risk*<b>${p.prs}th pct</b></div><div>Family history*<b>${p.fh?"Yes":"No"}</b></div>
+    </div>
+    <div class="small" style="margin-top:8px">Medicines: <b style="color:var(--ink)">${p.meds.length?p.meds.map(m=>m==="glp1"?"GLP-1 RA":m==="insulin"?"premixed insulin 30/70":m).join(", "):"none"}</b>
+     · Conditions: <b style="color:var(--ink)">${p.comorb.length?p.comorb.join(", "):"none recorded"}</b><br>*Synthetic marker for the prototype, not real genetic data.</div>`;
+  const r=p.risk[i], r2=p.risk250[i]; const [g]=lastReading(p,nowMin);
+  const card=document.getElementById("alertCard");
+  card.className="card alert "+(r!=null&&r>=THR?"hi":r!=null&&r>=THR*0.6?"mid":"");
+  const pk = Math.max(...HZ.map(h=>p.pred[h][i]??0)); const pkh = HZ[HZ.map(h=>p.pred[h][i]??0).indexOf(pk)];
+  let reasons = (D.reasons[p.reasons[i]]||"").split(" | ").filter(Boolean);
+  let action = "";
+  if (r!=null && r>=THR*0.6){
+    const base = twinRun(p, nowMin, {minutes:180, keepU:true});
+    const walk = twinRun(p, nowMin, {minutes:180, keepU:true, walkAt:0, walkMin:15});
+    const dpk = Math.max(...base)-Math.max(...walk);
+    if (dpk>2) action = `<div class="action"><b>Suggested nudge:</b> a 15-minute walk now lowers the twin's predicted peak by about ${Math.round(dpk)} mg/dL.</div>`;
+  }
+  card.innerHTML = r==null ? `<h3>Spike risk, next 2 hours</h3><div class="big">Already above 180</div><div class="small">Risk is scored only when the last 30 minutes were in range. Current CGM ${g==null?"–":Math.round(g)} mg/dL.</div>`
+   : `<h3>Spike risk, next 2 hours</h3>
+    <div style="display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap">
+      <div><div class="big">${r}%</div><div class="small">above 180 mg/dL${r>=THR?" · <b style='color:var(--red)'>ALERT</b>":""}</div></div>
+      <div><div class="big" style="font-size:20px">${r2==null?"–":r2+"%"}</div><div class="small">above 250 mg/dL${r2!=null&&r2>=THR250?" · <b style='color:var(--red)'>ALERT</b>":""}</div></div>
+      <div><div class="big" style="font-size:20px">${Math.round(pk)}</div><div class="small">forecast high in 2 h (at +${pkh} min)</div></div>
+    </div>
+    <div class="small" style="margin-top:8px">Top reasons (SHAP):</div>
+    <ul>${reasons.map(x=>`<li>${x}</li>`).join("")||"<li class='small'>–</li>"}</ul>${action}
+    <div class="small">Alert threshold ${THR.toFixed(0)}%, set on validation patients for 70% precision.</div>`;
+}
+
+// ---------- charts
+const PL = {displayModeBar:false, responsive:true};
+const base = (extra) => Object.assign({margin:{l:44,r:12,t:8,b:34}, paper_bgcolor:"#fff", plot_bgcolor:"#fff", font:{family:"system-ui,Segoe UI,Roboto,Arial",size:11,color:"#1d2733"},
+  xaxis:{gridcolor:"#eef1f4", type:"date"}, yaxis:{gridcolor:"#eef1f4", zeroline:false}, showlegend:false, hovermode:"x unified"}, extra||{});
+function hline(y, c, x0, x1){ return {type:"line", xref:"x", x0, x1, y0:y, y1:y, line:{color:c, width:1, dash:"dot"}}; }
+
+function renderMain(p){
+  const i=aidx(nowMin); const t0=nowMin-12*60, t1=nowMin+150;
+  const xs=[], ys=[];
+  for(let k=Math.floor(t0/5); k<Math.floor(nowMin/5); k++){ xs.push(tdate(k*5)); ys.push(p.cgm[k]); }
+  const fx=[tdate(nowMin-5), ...HZ.map(h=>tdate(nowMin+h))];
+  const [g]=lastReading(p,nowMin);
+  const fy=[g, ...HZ.map(h=>p.pred[h][i])], lo=[g, ...HZ.map(h=>p.q10[h][i])], hi=[g, ...HZ.map(h=>p.q90[h][i])];
+  const tw = twinRun(p, nowMin, {minutes:120, keepU:true}); const twx=tw.map((_,k)=>tdate(nowMin+5*(k+1)));
+  // truth after now (shown faintly for replay) — the clinic would not have it yet
+  const ax=[], ay=[]; for(let k=Math.floor(nowMin/5); k<Math.min(p.cgm.length, Math.floor(t1/5)); k++){ax.push(tdate(k*5)); ay.push(p.cgm[k]);}
+  const mm = p.meals.filter(x=>x[0]>=t0 && x[0]<nowMin), dz=p.doses.filter(x=>x[0]>=t0 && x[0]<nowMin);
+  const traces=[
+    {x:[...fx, ...fx.slice().reverse()], y:[...hi, ...lo.slice().reverse()], fill:"toself", mode:"lines", fillcolor:"rgba(15,118,110,0.14)", line:{width:0}, hoverinfo:"skip", name:"80% band"},
+    {x:xs, y:ys, mode:"lines", line:{color:"#1d2733", width:2}, name:"CGM", connectgaps:false},
+    {x:ax, y:ay, mode:"lines", line:{color:"#c3cad3", width:1.5}, name:"what actually happened (replay only)"},
+    {x:twx, y:tw, mode:"lines", line:{color:"#c2410c", width:1.6, dash:"dash"}, name:"twin alone"},
+    {x:fx, y:fy, mode:"lines+markers", line:{color:"#0f766e", width:3}, marker:{size:6}, name:"Prahari forecast"},
+    {x:mm.map(x=>tdate(x[0])), y:mm.map(_=>48), mode:"markers+text", marker:{symbol:"triangle-up", size:11, color:"#b45309"}, text:mm.map(x=>x[1]+"g"), textposition:"top center", textfont:{size:10,color:"#b45309"}, hovertext:mm.map(x=>x[3]+": "+x[4]+" ("+x[1]+" g logged, GI "+x[2]+")"), hoverinfo:"text", name:"meal"},
+    {x:dz.map(x=>tdate(x[0])), y:dz.map(_=>48), mode:"markers", marker:{symbol:"diamond", size:10, color:"#5b3fb0"}, hovertext:dz.map(x=>"insulin "+x[1]+" U"), hoverinfo:"text", name:"insulin"},
+  ];
+  const lay=base({margin:{l:44,r:12,t:22,b:34}, yaxis:{range:[40, Math.max(300, ...ys.filter(v=>v!=null), ...hi.filter(v=>v!=null))+10], gridcolor:"#eef1f4", title:{text:"mg/dL"}},
+    xaxis:{type:"date", range:[tdate(t0), tdate(t1)], gridcolor:"#eef1f4"},
+    shapes:[hline(70,"#b42318",tdate(t0),tdate(t1)), hline(180,"#b45309",tdate(t0),tdate(t1)), hline(250,"#b42318",tdate(t0),tdate(t1)),
+      {type:"line", x0:tdate(nowMin), x1:tdate(nowMin), y0:0, y1:1, yref:"paper", line:{color:"#0e1a24", width:1.2}},
+      {type:"rect", x0:tdate(nowMin), x1:tdate(t1), y0:0, y1:1, yref:"paper", fillcolor:"rgba(15,118,110,0.04)", line:{width:0}}],
+    annotations:[{x:tdate(nowMin), y:1, yref:"paper", text:"now", showarrow:false, yanchor:"bottom", font:{size:11}}]});
+  Plotly.react("chMain", traces, lay, PL);
+}
+
+const MEALS = [["Nothing new (only what is already logged)", 0, 70],["Lunch: 2 katori rice + sambar", 100, 74],["Lunch: 3 chapati + dal + sabzi", 74, 54],["Dinner: biryani + curd", 75, 68],
+  ["Breakfast: 3 idli + sambar", 49, 61],["Breakfast: poha + chai", 57, 72],["Snack: chai + 2 biscuits", 27, 68]];
+let wiTouched=false;
+function renderWhatIf(p){
+  const q=id=>document.getElementById(id);
+  if(!wiTouched){ const recent=p.meals.some(x=>nowMin-x[0]>=0 && nowMin-x[0]<=90 && x[1]>=30); q("wiMeal").value = recent ? 0 : 1;
+    q("wiSleep").value = Math.min(9, Math.max(4, Math.round(lastSleep(p, nowMin)*10)/10)); }
+  const mi=+q("wiMeal").value, [name,carbs0,gi]=MEALS[mi]; const when=+q("wiWhen").value, por=+q("wiPortion").value/100, walk=+q("wiWalk").value, sl=+q("wiSleep").value;
+  q("wiWhenV").textContent = when+" min"; q("wiPortionV").textContent=Math.round(por*100)+"%"; q("wiWalkV").textContent= walk? walk+" min":"none"; q("wiSleepV").textContent=sl+" h";
+  const carbs=carbs0*por; const H=240; const walkAt = carbs0 ? when+15 : when;
+  const plan = twinRun(p, nowMin, {minutes:H, carbs:carbs0, mealAt:when, gi, keepU:true});
+  const alt = twinRun(p, nowMin, {minutes:H, carbs, mealAt:when, gi, walkAt, walkMin:walk, sleep:sl, keepU:true});
+  const x = plan.map((_,k)=>tdate(nowMin+5*(k+1)));
+  Plotly.react("chWhatIf", [
+    {x, y:plan, mode:"lines", line:{color:"#8a94a3", width:2}, name:"as things stand: full portion, no walk, actual sleep"},
+    {x, y:alt, mode:"lines", line:{color:"#0f766e", width:3}, name:"your scenario"}],
+    base({showlegend:true, legend:{orientation:"h", y:1.15, x:0, font:{size:10}}, margin:{l:40,r:10,t:26,b:30},
+      shapes:[hline(180,"#b45309",x[0],x[x.length-1])], yaxis:{gridcolor:"#eef1f4", title:{text:"mg/dL"}}}), PL);
+  const above = arr => arr.filter(v=>v>180).length*5;
+  q("wiOut").innerHTML = `<div>Peak, usual<b>${Math.round(Math.max(...plan))}</b></div><div>Peak, scenario<b style="color:var(--teal)">${Math.round(Math.max(...alt))}</b></div>
+    <div>Minutes above 180 (4 h)<b>${above(plan)} → ${above(alt)}</b></div>`;
+}
+
+function ord(n){ const s=["th","st","nd","rd"], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+function renderParams(p){
+  const d=Math.min(Math.floor(nowMin/1440), p.theta.length-1); const th=p.theta[d];
+  const coh = k => { const v=D.patients.map(x=>x.theta[d][k]).sort((a,b)=>a-b); const r=v.filter(y=>y<=th[k]).length/v.length; return Math.round(r*100); };
+  const rows=[["Insulin sensitivity", (th[0]*1e4).toFixed(2)+" ×10⁻⁴", (p.prior.p_SI*1e4).toFixed(2), coh(0)],
+    ["Fasting glucose level", Math.round(th[1])+" mg/dL", Math.round(p.prior.p_Gb), coh(1)],
+    ["Meal response (carb gain)", th[2].toFixed(2)+"×", "1.00", coh(2)],
+    ["Absorption speed", (th[3]*100).toFixed(1)+" %/min", (p.prior.p_kabs*100).toFixed(1), coh(3)],
+    ["Dawn effect", th[4].toFixed(2)+" mg/dL/min", p.prior.p_dawn.toFixed(2), coh(4)]];
+  document.getElementById("paramTable").innerHTML = `<tr><td class="small">Parameter (day ${d+1})</td><td class="small">Twin now</td><td class="small">EHR prior</td><td class="small">Panel rank</td></tr>`+
+    rows.map(r=>`<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td>${ord(r[3])}</td></tr>`).join("");
+  const days=p.theta.map((_,k)=>k+1).slice(6, d+1);
+  Plotly.react("chParams", [
+    {x:days, y:p.theta.slice(6,d+1).map(t=>t[0]*1e4), mode:"lines+markers", line:{color:"#0f766e"}, name:"insulin sensitivity ×1e-4"},
+    {x:days, y:p.theta.slice(6,d+1).map(t=>t[1]), mode:"lines+markers", line:{color:"#1f4e8c"}, name:"fasting level", yaxis:"y2"}],
+    base({xaxis:{title:{text:"study day"}, gridcolor:"#eef1f4", dtick:1}, yaxis:{title:{text:"SI ×1e-4"}, gridcolor:"#eef1f4"},
+      yaxis2:{overlaying:"y", side:"right", title:{text:"mg/dL"}, showgrid:false}, showlegend:true, legend:{orientation:"h", y:1.25, font:{size:10}}, margin:{l:44,r:44,t:24,b:34}, hovermode:"x"}), PL);
+}
+
+function renderWear(p){
+  const k1=Math.floor(nowMin/5), k0=Math.max(0,k1-288); const x=[], st=[], hr=[], rm=[], sg=[];
+  for(let k=k0;k<k1;k++){x.push(tdate(k*5)); st.push(p.steps[k]); hr.push(p.hr[k]); rm.push(p.rmssd[k]); sg.push(p.stage[k]);}
+  const stageName=["awake","light","deep","REM"];
+  Plotly.react("chWear", [
+    {x, y:st, type:"bar", marker:{color:"#9cc9c3"}, name:"steps / 5 min", yaxis:"y"},
+    {x, y:hr, mode:"lines", line:{color:"#b42318", width:1.2}, name:"heart rate", yaxis:"y2"},
+    {x, y:rm, mode:"lines", line:{color:"#5b3fb0", width:1.2}, name:"HRV (RMSSD, ms)", yaxis:"y2"},
+    {x, y:sg.map(s=>s>0?(s===2?-3:s===3?-1:-2):null), mode:"lines", line:{color:"#1f4e8c", width:2, shape:"hv"}, name:"sleep stage", yaxis:"y3", hovertext:sg.map(s=>stageName[s]), hoverinfo:"text"}],
+    base({showlegend:true, legend:{orientation:"h", y:1.2, font:{size:10}}, margin:{l:40,r:40,t:24,b:30}, bargap:0,
+      xaxis:{type:"date", anchor:"y3", gridcolor:"#eef1f4"},
+      yaxis:{domain:[0.3,1], title:{text:"steps"}, gridcolor:"#eef1f4"}, yaxis2:{overlaying:"y", side:"right", showgrid:false, title:{text:"bpm / ms"}},
+      yaxis3:{domain:[0,0.22], range:[-3.5,-0.5], tickvals:[-1,-2,-3], ticktext:["REM","light","deep"], gridcolor:"#eef1f4"}}), PL);
+}
+
+function renderAgp(p){
+  const k1=Math.floor(nowMin/5), k0=Math.max(0,k1-288*7); const bins=Array.from({length:48},()=>[]);
+  let all=[];
+  for(let k=k0;k<k1;k++){const v=p.cgm[k]; if(v==null) continue; bins[Math.floor(((k*5)%1440)/30)].push(v); all.push(v);}
+  const pct=(a,q)=>{if(!a.length) return null; const s=a.slice().sort((x,y)=>x-y); return s[Math.min(s.length-1,Math.floor(q*(s.length-1)))];};
+  const x=bins.map((_,i)=>new Date(2026,0,1,0,i*30+15));
+  const P=q=>bins.map(b=>pct(b,q));
+  Plotly.react("chAgp", [
+    {x:[...x,...x.slice().reverse()], y:[...P(0.95),...P(0.05).reverse()], fill:"toself", mode:"lines", fillcolor:"rgba(31,78,140,0.10)", line:{width:0}, hoverinfo:"skip"},
+    {x:[...x,...x.slice().reverse()], y:[...P(0.75),...P(0.25).reverse()], fill:"toself", mode:"lines", fillcolor:"rgba(31,78,140,0.25)", line:{width:0}, hoverinfo:"skip"},
+    {x, y:P(0.5), mode:"lines", line:{color:"#1f4e8c", width:2.4}, name:"median"}],
+    base({xaxis:{type:"date", tickformat:"%H:%M", gridcolor:"#eef1f4"}, yaxis:{range:[40,350], gridcolor:"#eef1f4", title:{text:"mg/dL"}},
+      shapes:[hline(70,"#b42318",x[0],x[47]), hline(180,"#b45309",x[0],x[47])]}), PL);
+  const n=all.length||1, mean=all.reduce((a,b)=>a+b,0)/n, sd=Math.sqrt(all.reduce((a,b)=>a+(b-mean)**2,0)/n);
+  const tir=all.filter(v=>v>=70&&v<=180).length/n*100, tar=all.filter(v=>v>180).length/n*100;
+  document.getElementById("sumOut").innerHTML = `<div>Time in range 70-180<b>${tir.toFixed(0)}%</b></div><div>Above 180<b>${tar.toFixed(0)}%</b></div>
+   <div>GMI · CV<b>${(3.31+0.02392*mean).toFixed(1)}% · ${(sd/mean*100).toFixed(0)}%</b></div>`;
+}
+
+function render(){
+  if(!sel) sel=D.patients[0];
+  renderList(); renderPatient(sel); renderMain(sel); renderWhatIf(sel); renderParams(sel); renderWear(sel); renderAgp(sel);
+}
+
+// ---------- evidence
+let evDone=false;
+function renderEvidence(){
+  if(evDone) return; evDone=true;
+  const M=D.metrics, R=M.regression, A=M.classification;
+  const k=(v,l,s)=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`;
+  const full="full (with twin)";
+  document.getElementById("kpis").innerHTML =
+    k(R[full+"|60"].rmse.toFixed(1)+" mg/dL","60-min forecast RMSE",`CGM-only model ${R["cgm|60"].rmse.toFixed(1)} · persistence ${R["persist|60"].rmse.toFixed(1)}`)+
+    k(R[full+"|120"].rmse.toFixed(1)+" mg/dL","120-min forecast RMSE",`CGM-only model ${R["cgm|120"].rmse.toFixed(1)} · persistence ${R["persist|120"].rmse.toFixed(1)}`)+
+    k(A.spike250[full].sensitivity.toFixed(0)+"%","Severe spikes (>250) caught early",`median ${A.spike250[full].median_lead_min.toFixed(0)} min ahead · CGM-only ${A.spike250.cgm.sensitivity.toFixed(0)}%`)+
+    k(M.twin_identifiability.spearman_SI_onboarding.toFixed(2),"Twin recovers hidden insulin sensitivity","Spearman rank correlation after the onboarding week");
+  const ft=D.forecast_table; const meth=[...new Set(ft.map(r=>r.method))];
+  document.getElementById("fTable").innerHTML = `<table class="t"><tr><th>Method</th>${HZ.map(h=>`<th>${h} min</th>`).join("")}<th>Clarke A+B (60)</th></tr>`+
+    meth.map(m=>{const rr=ft.filter(r=>r.method===m); return `<tr class="${m.startsWith("Prahari")?"best":""}"><td>${m}</td>${HZ.map(h=>`<td>${rr.find(r=>r.horizon===h).rmse.toFixed(1)}</td>`).join("")}<td>${rr.find(r=>r.horizon===60).clarke_ab.toFixed(1)}%</td></tr>`;}).join("")+"</table><div class='small' style='margin-top:6px'>RMSE in mg/dL against measured CGM, "+M.n_test_patients+" held-out patients, days 8-21.</div>";
+  const at=D.alert_table, nm={"cgm":"CGM only","cgm+life":"+ wearables & meals","cgm+life+ehr":"+ EHR","full (with twin)":"Prahari (+ twin)","twin-only":"Twin peak alone"};
+  document.getElementById("aTable").innerHTML = `<table class="t"><tr><th>Target</th><th>Model</th><th>AUROC</th><th>AUPRC</th><th>Sensitivity</th><th>Lead (min)</th><th>False alerts / day</th></tr>`+
+    at.map(r=>`<tr class="${r.model==="full (with twin)"?"best":""}"><td>${r.target==="spike"?">180":">250"}</td><td>${nm[r.model]}</td><td>${r.auroc.toFixed(3)}</td><td>${r.auprc.toFixed(3)}</td><td>${r.sensitivity.toFixed(0)}%</td><td>${r.median_lead_min.toFixed(0)}</td><td>${r.false_alerts_per_patient_day.toFixed(2)}</td></tr>`).join("")+"</table>";
+  const f=D.figs; const set=(id,k)=>{ if(f[k]) document.getElementById(id).src=f[k]; };
+  set("figRmse","rmse_by_horizon"); set("figRoc","spike_roc_pr"); set("figShap","shap_importance"); set("figIdent","twin_identifiability"); set("figClarke","clarke_60"); set("figSim","sim_validation");
+  document.getElementById("sTable").innerHTML = `<table class="t"><tr><th>Check</th><th>Simulated</th><th>Published reference</th></tr>`+
+    D.sim_validation.map(r=>`<tr><td>${r.check}</td><td>${r.simulated}</td><td class="small">${r.published}</td></tr>`).join("")+"</table>";
+}
+
+// ---------- init
+const ms=document.getElementById("wiMeal"); MEALS.forEach((m,i)=>{const o=document.createElement("option"); o.value=i; o.textContent=m[0]+(m[1]?` (${m[1]} g)`:""); ms.appendChild(o);});
+["wiMeal","wiWhen","wiPortion","wiWalk","wiSleep"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{wiTouched=true;renderWhatIf(sel);}));
+sel = D.patients.find(p=>p.pt===D.default.pt) || D.patients[0];
+setNow(D.default.minute);
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+# large intermediates, rebuilt by scripts/run_all.py
+data/processed/features.parquet
+data/processed/predictions.parquet
+data/processed/twin_forecasts_static.parquet
+data/processed/twin_params_static.parquet
+data/processed/twin_priors_static.parquet
+data/processed/alert_reasons.parquet

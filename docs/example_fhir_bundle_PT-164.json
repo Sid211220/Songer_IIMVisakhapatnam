@@ -1,0 +1,118 @@
+{
+ "resourceType": "Bundle",
+ "type": "collection",
+ "entry": [
+  {
+   "resource": {
+    "resourceType": "Patient",
+    "id": "PT-164",
+    "gender": "female"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Condition",
+    "subject": {
+     "reference": "Patient/PT-164"
+    },
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "44054006",
+       "display": "Diabetes mellitus type 2"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "status": "final",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "4548-4",
+       "display": "Hemoglobin A1c"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/PT-164"
+    },
+    "valueQuantity": {
+     "value": 6.6,
+     "unit": "%"
+    }
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "status": "final",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "39156-5",
+       "display": "BMI"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/PT-164"
+    },
+    "valueQuantity": {
+     "value": 24.4,
+     "unit": "kg/m2"
+    }
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "status": "final",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "33914-3",
+       "display": "eGFR"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/PT-164"
+    },
+    "valueQuantity": {
+     "value": 148.2,
+     "unit": "mL/min/1.73m2"
+    }
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "status": "final",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8480-6",
+       "display": "Systolic BP"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/PT-164"
+    },
+    "valueQuantity": {
+     "value": 143.0,
+     "unit": "mm[Hg]"
+    }
+   }
+  }
+ ]
+}
