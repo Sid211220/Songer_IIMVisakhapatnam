@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| Live dashboard | `https://sid211220.github.io/Songer_IIMVisakhapatnam/` (GitHub Pages; the same file is [`docs/index.html`](docs/index.html) and works offline) |
+| Live dashboard | `[https://sid211220.github.io/Songer_IIMVisakhapatnam/](https://sid211220.github.io/Songer_IIMVisakhapatnam/)` (GitHub Pages; the same file is [`docs/index.html`](docs/index.html) and works offline) |
 | Demo video (unlisted YouTube) | **[Youtube](https://youtu.be/8H4d_eYjANs)** |
 | Presentation (PDF / PPTX) | [`docs/Prahari_Presentation.pdf`](docs/Prahari_Presentation.pdf) · [`docs/Prahari_Presentation.pptx`](docs/Prahari_Presentation.pptx) |
 | Architecture diagram (PDF / PPTX) | [`docs/Prahari_Architecture.pdf`](docs/Prahari_Architecture.pdf) · [`docs/Prahari_Architecture.pptx`](docs/Prahari_Architecture.pptx) |
